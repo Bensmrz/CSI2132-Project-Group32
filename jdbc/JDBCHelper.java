@@ -1,5 +1,6 @@
 import java.sql.*;
-import java.lang.Exception.URISyntaxException;
+import java.net.URISyntaxException;
+import java.net.URI;
 
 public class JDBCHelper {
 
@@ -53,7 +54,7 @@ public class JDBCHelper {
         return DriverManager.getConnection(dbUrl, username, password);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args)throws URISyntaxException, SQLException{
 
         Connection conn = getConnection();
 
