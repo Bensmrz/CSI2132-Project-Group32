@@ -10,7 +10,7 @@
             Welcome to the dental database
         </h3>
 
-        <p>Enter Patient Info Below to Display Appointments and Patient Records:</p>
+        <p>Enter Patient Info Below to Fetch Patient Records:</p>
         <form>
             <div style="padding-bottom: 5px;">
                 <label for="fname">First name:</label><br>
@@ -21,16 +21,37 @@
             <input type="submit">
         </form>
 
-        <p>Enter Your Information Below to See Your Appointments:</p>
-        <form>
-            <div style="padding-bottom: 5px;">
-                <label for="fname">First name:</label><br>
-                <input type="text" id="fname" name="fname"><br>
-                <label for="fname">Last name:</label><br>
-                <input type="text" id="lname" name="lname"><br>
-            </div>
-            <input type="submit">
-        </form>
+        <?php
+        $servername = "localhost";
+        $username = "username";
+        $password = "password";
+        $dbname = "myDB";
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        
+        ***Modify this query here***
+
+        //fetch the patient records
+
+        $sql = "SELECT record.record_id,r_date,progress_notes,insurance,patient.user_id from record JOIN patient ON record.record_id=patient.record_id";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo "<br> Date: ". $row["r_date"]. " - Notes ". $row["progress_notes"]. "<br>";
+            }
+        } else {
+            echo "0 appointment results";
+        }
+        
+        $conn->close();
+        ?>
 
     </body>
 </html>

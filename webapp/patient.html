@@ -10,7 +10,7 @@
             Welcome to the dental database
         </h3>
 
-        <p>Enter Your Information Below to See Your Appointments and Patient Records:</p>
+        <p>Enter Your Information Below to See Your Appointments:</p>
         <form>
             <div style="padding-bottom: 5px;">
                 <label for="fname">First name:</label><br>
@@ -18,7 +18,38 @@
                 <label for="fname">Last name:</label><br>
                 <input type="text" id="lname" name="lname"><br>
             </div>
-            <input type="submit">
+            <input type="submit" name="viewappts" value="DisplayInfo" id="viewappts" >
         </form>
+        <?php
+        $servername = "localhost";
+        $username = "username";
+        $password = "password";
+        $dbname = "myDB";
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        
+        ***Modify this query here***
+        
+        //fetch appointments first
+
+        $sql = "SELECT patient.user_id, appointment.* FROM appointment,patient,fee_charge,invoice WHERE appointment.fee_id=fee_charge.fee_id AND fee_charge.invoice_id=invoice.invoice_id AND invoice.patient_insurance=patient.insurance AND user_id='...'";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo "<br> Appointment Date: ". $row["a_date"]. " Appointment Start Time: ". $row["start_time"]. " Appointment End Time: " . $row["end_time"] . "<br>";
+            }
+        } else {
+            echo "0 appointment results";
+        }
+        
+        $conn->close();
+        ?>
     </body>
 </html>

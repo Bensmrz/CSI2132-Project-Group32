@@ -14,15 +14,25 @@
         </h3>
         <p>
             Enter the User Information to be Added to the Database
+        </p><br>
+        <p>
+            Leave the Employee fields blank when adding a patient
         </p>
+
         <form>
             <div style="padding-bottom: 5px;">
                 <label>First name:</label><br>
                 <input type="text" id="fname" name="fname"><br>
                 <label>Last name:</label><br>
                 <input type="text" id="lname" name="lname"><br>
-                <label>User Role:</label><br>
+                <label>Employee Role:</label><br>
                 <input type="text" id="role" name="role"><br>
+                <label>Employee Type:</label><br>
+                <input type="text" id="type" name="type"><br>
+                <label>Employee salary:</label><br>
+                <input type="text" id="salary" name="salary"><br>
+                <label>Employee Branch ID:</label><br>
+                <input type="text" id="branch_id" name="branch_id"><br>
                 <label>Street Number:</label><br>
                 <input type="text" id="stnum" name="stnum"><br>
                 <label>Street Name:</label><br>
@@ -48,9 +58,60 @@
                 <label>Email:</label><br>
                 <input type="text" id="email" name="email"><br>
                 <label>Insurance:</label><br>
-                <input type="text" id="ssn" name="snn"><br>
+                <input type="text" id="ins" name="ins"><br>
             </div>
             <input type="submit">
         </form>
+
+        <?php
+        $servername = "localhost";
+        $username = "username";
+        $password = "password";
+        $dbname = "myDB";
+        $fname = $_POST["fname"];
+        $lname = $_POST["lname"];
+        $role = $_POST["role"];
+        $type = $_POST["type"];
+        $branch_id = $_POST["branch_id"];
+        $salary = $_POST["salary"];
+        $stnum = $_POST["stnum"];
+        $stname = $_POST["stname "];
+        $aptnum = $_POST["aptnum"];
+        $city = $_POST["city"];
+        $prov = $_POST["prov"];
+        $zip = $_POST["zip"];
+        $phone = $_POST["phone"];
+        $dob = $_POST["dob"];
+        $age = $_POST["age"];
+        $gen = $_POST["gen"];
+        $ssn = $_POST["ssn"];
+        $email = $_POST["email"];
+        $ins = $_POST["ins"];
+        $user_id = uniqid("", false);
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+
+        if (role != ""){
+            $sql = "INSERT INTO employee(employeerole, employeetype, salary, user_id) VALUES ($role, $type, $salary, $user_id, $branch_id))";
+        }
+        else{
+            $sql = "INSERT INTO patient(insurance, email, user_id) VALUES ($ins,$email,$user_id)";
+        }
+
+        $sql = "INSERT INTO patient(insurance, email, user_id) VALUES ($ins,$email,$user_id)";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            // output data of each row
+            echo "User added successfully"
+        } else {
+            echo "Error adding User";
+        }
+        
+        $conn->close();
+        ?>
+
     </body>
 </html>

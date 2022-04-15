@@ -36,5 +36,41 @@
                 <input type="submit">
             </form>
         </form>
+        <?php
+        $servername = "localhost";
+        $username = "username";
+        $password = "password";
+        $dbname = "myDB";
+
+        $appt_id = uniqid("", false);
+        $date = $_POST["date"];
+        $stime = $_POST["stime"];
+        $etime = $_POST["etime"];
+        $appt_type = $_POST["appt_type"];
+        $status = $_POST["status"];
+        $fee = $_POST["fee"];
+        $treatcode = $_POST["treatcode"];
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        
+        ***Modify this query here***
+
+        $sql = "INSERT INTO appointment(appointment_id, a_date, start_time, end_time, appointment_type, status, fee_id, treatment_code) VALUES ($appt_id, $date, $stime, $etime, $appt_type, $status, $fee, $treatcode)";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            // output data of each row
+
+        } else {
+            echo "0 appointment results";
+        }
+        
+        $conn->close();
+        ?>
     </body>
 </html>
